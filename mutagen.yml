@@ -1,0 +1,40 @@
+
+# Synchronize code to the shared Docker volume via the Mutagen service.
+sync:
+  defaults:
+    flushOnCreate: true
+    probeMode: "assume"
+    scanMode: "accelerated"
+    permissions:
+      defaultFileMode: 0640
+      defaultDirectoryMode: 0750
+    watch:
+      mode: "portable"
+    symlink:
+      mode: "ignore"
+    ignore:
+      vcs: true
+  code:
+    alpha: "."
+    beta: "docker://php/app"
+    configurationAlpha:
+      watch:
+        pollingInterval: 5
+    configurationBeta:
+      permissions:
+        defaultOwner: "root"
+        defaultGroup: "root"
+      watch:
+        pollingInterval: 60
+    mode: "two-way-resolved"
+    ignore:
+      paths:
+        - "/.idea"
+        - "/.git"
+        - "/.git*"
+        - "/var/*"
+        - "/vendor"
+        - "/node_modules"
+        - "*.zip"
+        - "*.tar.gz"
+        - "*.sql"
