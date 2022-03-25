@@ -8,8 +8,11 @@ RUN apt update \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip
 
-RUN apt install -y nodejs \
-    && apt install -y npm
+RUN pecl install xdebug \
+        && docker-php-ext-enable xdebug \
+        && apt install -y nodejs \
+        && apt install -y npm
+
 
 WORKDIR /var/www/portfolio
 

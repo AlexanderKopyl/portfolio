@@ -33,8 +33,6 @@ sync:
         - "/.git"
         - "/.git*"
         - "/var/*"
-        - "/vendor"
-        - "/node_modules"
         - "*.zip"
         - "*.tar.gz"
         - "*.sql"

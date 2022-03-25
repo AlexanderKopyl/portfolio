@@ -25,6 +25,8 @@ services:
         - '9000:9000'
       volumes:
         - ./app:/var/www/portfolio
+        - ./.docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        - ./.docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
       depends_on:
         - database
     nginx:
