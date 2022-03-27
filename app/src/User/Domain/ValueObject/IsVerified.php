@@ -14,7 +14,7 @@ class IsVerified extends AbstractValueObject
     /**
      * @param bool $value
      */
-    public function __construct(bool $value)
+    public function __construct(bool $value = false)
     {
         $this->isVerified = $value;
     }

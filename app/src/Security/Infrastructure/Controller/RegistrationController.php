@@ -18,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use App\User\Application\Service\UserServiceInterface;
+use App\User\Application\Service\UserTranslator;
 
 class RegistrationController extends AbstractController
 {
@@ -31,14 +32,18 @@ class RegistrationController extends AbstractController
      */
     private UserServiceInterface $userService;
 
+    private UserTranslator $userTranslator;
+
 
     public function __construct(
         EmailVerifier $emailVerifier,
-        UserServiceInterface $userService
+        UserServiceInterface $userService,
+        UserTranslator $userTranslator
 
     ) {
         $this->emailVerifier = $emailVerifier;
         $this->userService = $userService;
+        $this->userTranslator = $userTranslator;
     }
 
     /**
@@ -47,7 +52,7 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        $user = new User();
+        $user = $this->userTranslator->createUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

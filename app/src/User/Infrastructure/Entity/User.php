@@ -33,36 +33,42 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
      * @ORM\Column(type="integer")
      */
     protected $id;
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     protected $firstname;
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     protected $lastname;
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     protected $phone;
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=180, unique=true)
      */
     protected $email;
+
     /**
      * @var Roles
      *
      * @ORM\Column(type="json")
      */
     protected $roles;
+
     /**
      * @var string The hashed password
      *
@@ -81,6 +87,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     {
         return new ID($this->id);
     }
+
     /**
      * @throws InvalidEmailException
      */
@@ -88,12 +95,14 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     {
         return new Email($this->email);
     }
+
     public function setEmail(Email $email): self
     {
         $this->email = (string)$email;
 
         return $this;
     }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -101,8 +110,9 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
+
     /**
      * @see UserInterface
      */
@@ -112,6 +122,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
 
         return $this->roles->getValue();
     }
+
     /**
      * @param Roles $roles
      *
@@ -123,6 +134,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
 
         return $this;
     }
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -143,6 +155,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
 
         return $this;
     }
+
     /**
      * @see UserInterface
      */
@@ -151,6 +164,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
     /**
      * @return FirstName
      */
@@ -158,6 +172,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     {
         return new FirstName($this->firstname);
     }
+
     /**
      * @param FirstName $firstname
      *
@@ -169,6 +184,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
 
         return $this;
     }
+
     /**
      * @return LastName
      */
@@ -176,6 +192,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     {
         return new LastName($this->lastname);
     }
+
     /**
      * @param LastName $lastname
      *
@@ -187,6 +204,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
 
         return $this;
     }
+
     /**
      * @return Phone
      */
@@ -194,6 +212,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     {
         return new UkrainianPhone($this->phone);
     }
+
     /**
      * @param Phone $phone
      *

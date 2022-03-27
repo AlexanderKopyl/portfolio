@@ -182,4 +182,25 @@ class User
 
         return $this;
     }
+
+    /**
+     * @param array $arrayFromDataTransfer
+     *
+     * @return $this
+     */
+    public function fromArray(array $arrayFromDataTransfer): self
+    {
+        foreach ($arrayFromDataTransfer as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+            }
+        }
+
+        return $this;
+    }
+
+    public function isEmpty(): bool
+    {
+        return (bool)get_object_vars($this);
+    }
 }

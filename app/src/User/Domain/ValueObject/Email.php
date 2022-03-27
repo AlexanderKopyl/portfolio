@@ -21,6 +21,7 @@ class Email extends AbstractValueObject
         if (false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidEmailException($email);
         }
+
         $this->email = $email;
     }
 
