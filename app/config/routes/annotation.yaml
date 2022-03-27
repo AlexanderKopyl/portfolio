@@ -1,3 +1,6 @@
 user:
     resource: ../../src/User/Infrastructure/Controller/
     type: annotation
+security:
+    resource: ../../src/Security/Infrastructure/Controller/
+    type: annotation

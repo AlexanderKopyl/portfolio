@@ -7,6 +7,7 @@ use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\Exception\InvalidEmailException;
 use App\User\Domain\ValueObject\FirstName;
 use App\User\Domain\ValueObject\ID;
+use App\User\Domain\ValueObject\IsVerified;
 use App\User\Domain\ValueObject\LastName;
 use App\User\Domain\ValueObject\Password;
 use App\User\Domain\ValueObject\Phone;
@@ -14,12 +15,14 @@ use App\User\Domain\ValueObject\Roles;
 use App\User\Domain\ValueObject\UkrainianPhone;
 use App\User\Infrastructure\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User extends DomainUser implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -30,42 +33,36 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
      * @ORM\Column(type="integer")
      */
     protected $id;
-
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     protected $firstname;
-
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     protected $lastname;
-
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     protected $phone;
-
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=180, unique=true)
      */
     protected $email;
-
     /**
      * @var Roles
      *
      * @ORM\Column(type="json")
      */
     protected $roles;
-
     /**
      * @var string The hashed password
      *
@@ -73,11 +70,17 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
      */
     protected $password;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $isVerified;
+
     public function getId(): ?ID
     {
         return new ID($this->id);
     }
-
     /**
      * @throws InvalidEmailException
      */
@@ -85,14 +88,12 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     {
         return new Email($this->email);
     }
-
     public function setEmail(Email $email): self
     {
         $this->email = (string)$email;
 
         return $this;
     }
-
     /**
      * A visual identifier that represents this user.
      *
@@ -102,7 +103,6 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     {
         return (string) $this->email;
     }
-
     /**
      * @see UserInterface
      */
@@ -112,7 +112,6 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
 
         return $this->roles->getValue();
     }
-
     /**
      * @param Roles $roles
      *
@@ -124,7 +123,6 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
 
         return $this;
     }
-
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -134,13 +132,17 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
             ->__toString();
     }
 
+    /**
+     * @param Password $password
+     *
+     * @return $this
+     */
     public function setPassword(Password $password): self
     {
         $this->password = $password;
 
         return $this;
     }
-
     /**
      * @see UserInterface
      */
@@ -149,7 +151,6 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
     /**
      * @return FirstName
      */
@@ -157,7 +158,6 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     {
         return new FirstName($this->firstname);
     }
-
     /**
      * @param FirstName $firstname
      *
@@ -169,7 +169,6 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
 
         return $this;
     }
-
     /**
      * @return LastName
      */
@@ -177,7 +176,6 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     {
         return new LastName($this->lastname);
     }
-
     /**
      * @param LastName $lastname
      *
@@ -189,7 +187,6 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
 
         return $this;
     }
-
     /**
      * @return Phone
      */
@@ -197,7 +194,6 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     {
         return new UkrainianPhone($this->phone);
     }
-
     /**
      * @param Phone $phone
      *
@@ -206,6 +202,26 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     public function setPhone(Phone $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * @return IsVerified
+     */
+    public function isVerified(): IsVerified
+    {
+        return new IsVerified($this->isVerified);
+    }
+
+    /**
+     * @param IsVerified $isVerified
+     *
+     * @return $this
+     */
+    public function setIsVerified(IsVerified $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace App\User\Domain\Factory;
 use App\User\Domain\Entity\User;
 use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\FirstName;
+use App\User\Domain\ValueObject\IsVerified;
 use App\User\Domain\ValueObject\LastName;
 use App\User\Domain\ValueObject\Password;
 use App\User\Domain\ValueObject\Phone;
@@ -55,5 +56,12 @@ interface UserFactoryInterface
      * @return $this
      */
     public function setPhone(Phone $phone): UserFactoryInterface;
+
+    /**
+     * @param IsVerified $isVerified
+     *
+     * @return $this
+     */
+    public function setIsVerified(IsVerified $isVerified): UserFactoryInterface;
 
 }

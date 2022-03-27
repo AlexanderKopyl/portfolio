@@ -7,6 +7,7 @@ use App\User\Domain\Entity\User;
 use App\User\Domain\Factory\UserFactoryInterface;
 use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\FirstName;
+use App\User\Domain\ValueObject\IsVerified;
 use App\User\Domain\ValueObject\LastName;
 use App\User\Domain\ValueObject\Password;
 use App\User\Domain\ValueObject\Phone;
@@ -45,6 +46,11 @@ class UserFactory implements UserFactoryInterface
     protected $password;
 
     /**
+     * @var IsVerified
+     */
+    protected $isVerified;
+
+    /**
      * @return static
      */
     public static function create(): UserFactoryInterface
@@ -65,6 +71,7 @@ class UserFactory implements UserFactoryInterface
             ->setEmail($this->getEmail())
             ->setPhone($this->getPhone())
             ->setPassword($this->getPassword())
+            ->setIsVerified($this->getIsVerified())
             ->setRoles($this->getRoles());
     }
 
@@ -175,5 +182,25 @@ class UserFactory implements UserFactoryInterface
     public function getPassword(): Password
     {
         return $this->password;
+    }
+
+    /**
+     * @return IsVerified
+     */
+    public function getIsVerified(): IsVerified
+    {
+        return $this->isVerified;
+    }
+
+    /**
+     * @param IsVerified $isVerified
+     *
+     * @return $this
+     */
+    public function setIsVerified(IsVerified $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
     }
 }

@@ -6,6 +6,7 @@ namespace App\User\Domain\Entity;
 use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\FirstName;
 use App\User\Domain\ValueObject\ID;
+use App\User\Domain\ValueObject\IsVerified;
 use App\User\Domain\ValueObject\LastName;
 use App\User\Domain\ValueObject\Password;
 use App\User\Domain\ValueObject\Phone;
@@ -47,6 +48,11 @@ class User
      * @var Password
      */
     protected $password;
+
+    /**
+     * @var IsVerified
+     */
+    protected $isVerified;
 
     public function getId(): ?ID
     {
@@ -153,6 +159,26 @@ class User
     public function setPhone(Phone $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * @return IsVerified
+     */
+    public function getIsVerified(): IsVerified
+    {
+        return $this->isVerified;
+    }
+
+    /**
+     * @param IsVerified $isVerified
+     *
+     * @return $this
+     */
+    public function setIsVerified(IsVerified $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
