@@ -27,7 +27,7 @@ class UserController extends AbstractController
     public function list(): Response
     {
         $repository = $this->em->getRepository(User::class);
-
+        dd($repository->findAll());
         return $this->render('index.html.twig', [
             'controller_name' => 'UserManagerController',
         ]);

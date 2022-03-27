@@ -77,8 +77,6 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     protected $password;
 
     /**
-     * @var int
-     *
      * @ORM\Column(type="boolean")
      */
     protected $isVerified;
@@ -230,7 +228,8 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
      */
     public function isVerified(): IsVerified
     {
-        return new IsVerified($this->isVerified);
+        return (new IsVerified($this->isVerified))
+            ->getValue();
     }
 
     /**

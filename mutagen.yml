@@ -32,7 +32,6 @@ sync:
         - "/.idea"
         - "/.git"
         - "/.git*"
-        - "/var/*"
         - "*.zip"
         - "*.tar.gz"
         - "*.sql"

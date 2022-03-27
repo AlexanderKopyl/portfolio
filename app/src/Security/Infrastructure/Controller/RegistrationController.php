@@ -4,7 +4,13 @@ namespace App\Security\Infrastructure\Controller;
 
 use App\Security\Application\Service\EmailVerifier;
 use App\Security\Infrastructure\Form\RegistrationFormType;
+use App\User\Domain\ValueObject\Email;
+use App\User\Domain\ValueObject\FirstName;
+use App\User\Domain\ValueObject\IsVerified;
+use App\User\Domain\ValueObject\LastName;
 use App\User\Domain\ValueObject\Password;
+use App\User\Domain\ValueObject\Roles;
+use App\User\Domain\ValueObject\UkrainianPhone;
 use App\User\Infrastructure\Entity\User;
 use App\User\Infrastructure\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -63,7 +69,16 @@ class RegistrationController extends AbstractController
                 $form->get('plainPassword')->getData()
             ));
 
-            $user->setPassword($plainPassword);
+            $roles = new Roles([]);
+            $roles->setRole("ROLE_USER");
+
+            $user->setPassword($plainPassword)
+                ->setIsVerified(new IsVerified(false))
+                ->setPhone(new UkrainianPhone($form->get('phone')->getData()))
+                ->setRoles($roles)
+                ->setFirstname(new FirstName($form->get('firstname')->getData()))
+                ->setLastname(new LastName($form->get('lastname')->getData()))
+                ->setEmail(new Email($form->get('email')->getData()));
 
             $this->userService->save($user);
 

@@ -5,12 +5,12 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="Yz9r2e" resname="Plain password">
-        <source>Plain password</source>
+      <trans-unit id="Yz9r2e" resname="app.register.password">
+        <source>app.register.password</source>
         <target>Пароль</target>
       </trans-unit>
-      <trans-unit id="5MRnk5" resname="Register">
-        <source>Register</source>
+      <trans-unit id="app.register.button">
+        <source>app.register.button</source>
         <target>Регистрация</target>
       </trans-unit>
     </body>

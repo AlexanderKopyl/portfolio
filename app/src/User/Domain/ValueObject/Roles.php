@@ -46,6 +46,8 @@ class Roles extends AbstractValueObject
 
     /**
      * @return string
+     *
+     * @throws \JsonException
      */
     public function __toString()
     {
