@@ -1,16 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace App\User\Controller;
+namespace App\User\Infrastructure\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserManagerController extends AbstractController
+class UserController extends AbstractController
 {
-    #[Route('/user-manager', name: 'user_manager')]
-    public function userManager(): Response
+    /**
+     * @Route("/users", methods={"GET"}, name="users")
+     */
+    public function list(): Response
     {
         return $this->render('index.html.twig', [
             'controller_name' => 'UserManagerController',

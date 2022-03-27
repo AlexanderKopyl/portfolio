@@ -12,10 +12,16 @@ doctrine:
         mappings:
             App\User:
                 type: annotation
-                dir: '%kernel.project_dir%/src/User/Entity'
+                dir: '%kernel.project_dir%/src/User/Infrastructure/Entity'
                 is_bundle: false
-                prefix: App\User\Entity
+                prefix: App\User\Infrastructure\Entity
                 alias: User
+            App\Security:
+                type: annotation
+                dir: '%kernel.project_dir%/src/Security/Infrastructure/Entity'
+                is_bundle: false
+                prefix: App\Security\Infrastructure\Entity
+                alias: Security
 
 when@test:
     doctrine:
