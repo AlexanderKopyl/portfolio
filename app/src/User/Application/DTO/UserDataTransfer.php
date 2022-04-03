@@ -70,14 +70,14 @@ class UserDataTransfer
      * @param IsVerified $isVerified
      */
     public function __construct(
-        ID         $id,
+        int         $id,
         FirstName  $firstname,
         LastName   $lastname,
         Email      $email,
         Phone      $phone,
-        Roles      $roles,
+        array      $roles,
         Password   $password,
-        IsVerified $isVerified
+        int $isVerified
     ) {
         $this->id = $id;
         $this->firstname = $firstname;

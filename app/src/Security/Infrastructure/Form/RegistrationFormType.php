@@ -83,7 +83,7 @@ class RegistrationFormType extends AbstractType implements DataMapperInterface
     {
         $forms = iterator_to_array($forms);
         $viewData = (new User())
-            ->setIsVerified(new IsVerified(false))
+            ->setIsVerified(0)
             ->setPassword(new Password($forms['plainPassword']->getData()))
             ->setPhone(new UkrainianPhone($forms['phone']->getData()))
             ->setFirstname(new FirstName($forms['firstname']->getData()))

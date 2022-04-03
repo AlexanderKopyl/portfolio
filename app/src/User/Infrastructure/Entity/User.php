@@ -6,12 +6,9 @@ use App\User\Domain\Entity\User as DomainUser;
 use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\Exception\InvalidEmailException;
 use App\User\Domain\ValueObject\FirstName;
-use App\User\Domain\ValueObject\ID;
-use App\User\Domain\ValueObject\IsVerified;
 use App\User\Domain\ValueObject\LastName;
 use App\User\Domain\ValueObject\Password;
 use App\User\Domain\ValueObject\Phone;
-use App\User\Domain\ValueObject\Roles;
 use App\User\Domain\ValueObject\UkrainianPhone;
 use App\User\Infrastructure\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -63,7 +60,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     protected $email;
 
     /**
-     * @var Roles
+     * @var array
      *
      * @ORM\Column(type="json")
      */
@@ -77,13 +74,15 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     protected $password;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var int
+     *
+     * @ORM\Column(type="integer", length=1)
      */
     protected $isVerified;
 
-    public function getId(): ?ID
+    public function getId(): int
     {
-        return new ID($this->id);
+        return $this->id;
     }
 
     /**
@@ -116,17 +115,15 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
      */
     public function getRoles(): array
     {
-        $this->roles->setRole('ROLE_USER');
-
-        return $this->roles->getValue();
+        return $this->roles;
     }
 
     /**
-     * @param Roles $roles
+     * @param array $roles
      *
      * @return $this
      */
-    public function setRoles(Roles $roles): self
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
@@ -138,8 +135,7 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
      */
     public function getPassword(): string
     {
-        return (new Password($this->password))
-            ->__toString();
+        return (string)(new Password($this->password));
     }
 
     /**
@@ -224,20 +220,19 @@ class User extends DomainUser implements UserInterface, PasswordAuthenticatedUse
     }
 
     /**
-     * @return IsVerified
+     * @return int
      */
-    public function isVerified(): IsVerified
+    public function isVerified(): int
     {
-        return (new IsVerified($this->isVerified))
-            ->getValue();
+        return $this->isVerified;
     }
 
     /**
-     * @param IsVerified $isVerified
+     * @param int $isVerified
      *
      * @return $this
      */
-    public function setIsVerified(IsVerified $isVerified): self
+    public function setIsVerified(int $isVerified): self
     {
         $this->isVerified = $isVerified;
 

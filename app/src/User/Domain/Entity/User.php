@@ -5,17 +5,14 @@ namespace App\User\Domain\Entity;
 
 use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\FirstName;
-use App\User\Domain\ValueObject\ID;
-use App\User\Domain\ValueObject\IsVerified;
 use App\User\Domain\ValueObject\LastName;
 use App\User\Domain\ValueObject\Password;
 use App\User\Domain\ValueObject\Phone;
-use App\User\Domain\ValueObject\Roles;
 
 class User
 {
     /**
-     * @var ID
+     * @var int
      */
     protected $id;
 
@@ -40,7 +37,7 @@ class User
     protected $phone;
 
     /**
-     * @var Roles
+     * @var array
      */
     protected $roles;
 
@@ -50,11 +47,11 @@ class User
     protected $password;
 
     /**
-     * @var IsVerified
+     * @var int
      */
     protected $isVerified;
 
-    public function getId(): ?ID
+    public function getId(): int
     {
         return $this->id;
     }
@@ -76,12 +73,10 @@ class User
      */
     public function getRoles(): array
     {
-        $this->roles->setRole('ROLE_USER');
-
-        return $this->roles->getValue();
+        return $this->roles;
     }
 
-    public function setRoles(Roles $roles): self
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
@@ -164,19 +159,19 @@ class User
     }
 
     /**
-     * @return IsVerified
+     * @return int
      */
-    public function getIsVerified(): IsVerified
+    public function getIsVerified(): int
     {
         return $this->isVerified;
     }
 
     /**
-     * @param IsVerified $isVerified
+     * @param int $isVerified
      *
      * @return $this
      */
-    public function setIsVerified(IsVerified $isVerified): self
+    public function setIsVerified(int $isVerified): self
     {
         $this->isVerified = $isVerified;
 

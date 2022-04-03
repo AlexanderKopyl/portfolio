@@ -56,14 +56,14 @@ class UserTranslator
     public function createUser(): User|DomainUser
     {
         $userTransfer = new UserDataTransfer(
-            new ID(0),
+            0,
             new FirstName(''),
             new LastName(''),
             new Email('unknown@gmail.com'),
             new UkrainianPhone('0998887777'),
-            new Roles([]),
+            ["ROLE_USER"],
             new Password(""),
-            new IsVerified()
+            0
         );
 
         return (new User())->fromArray($userTransfer->toArray());

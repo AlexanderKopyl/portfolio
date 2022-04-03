@@ -69,13 +69,10 @@ class RegistrationController extends AbstractController
                 $form->get('plainPassword')->getData()
             ));
 
-            $roles = new Roles([]);
-            $roles->setRole("ROLE_USER");
-
             $user->setPassword($plainPassword)
-                ->setIsVerified(new IsVerified(false))
+                ->setIsVerified(0)
                 ->setPhone(new UkrainianPhone($form->get('phone')->getData()))
-                ->setRoles($roles)
+                ->setRoles(["ROLE_USER"])
                 ->setFirstname(new FirstName($form->get('firstname')->getData()))
                 ->setLastname(new LastName($form->get('lastname')->getData()))
                 ->setEmail(new Email($form->get('email')->getData()));
