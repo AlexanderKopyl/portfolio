@@ -15,11 +15,11 @@ interface UserServiceInterface
     public function save(User $user): User;
 
     /**
-     * @param ID $ID
+     * @param int $id
      *
      * @return User|null
      */
-    public function get(ID $ID): ?User;
+    public function get(int $id): ?User;
 
     /**
      * @param User $user

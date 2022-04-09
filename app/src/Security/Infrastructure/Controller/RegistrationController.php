@@ -6,12 +6,9 @@ use App\Security\Application\Service\EmailVerifier;
 use App\Security\Infrastructure\Form\RegistrationFormType;
 use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\FirstName;
-use App\User\Domain\ValueObject\IsVerified;
 use App\User\Domain\ValueObject\LastName;
 use App\User\Domain\ValueObject\Password;
-use App\User\Domain\ValueObject\Roles;
 use App\User\Domain\ValueObject\UkrainianPhone;
-use App\User\Infrastructure\Entity\User;
 use App\User\Infrastructure\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -24,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use App\User\Application\Service\UserServiceInterface;
-use App\User\Application\Service\UserTranslator;
+use App\User\Infrastructure\Factory\UserFactory;
 
 class RegistrationController extends AbstractController
 {
@@ -38,18 +35,13 @@ class RegistrationController extends AbstractController
      */
     private UserServiceInterface $userService;
 
-    private UserTranslator $userTranslator;
-
-
     public function __construct(
         EmailVerifier $emailVerifier,
-        UserServiceInterface $userService,
-        UserTranslator $userTranslator
+        UserServiceInterface $userService
 
     ) {
         $this->emailVerifier = $emailVerifier;
         $this->userService = $userService;
-        $this->userTranslator = $userTranslator;
     }
 
     /**
@@ -58,7 +50,9 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->userTranslator->createUser();
+        /** @var \App\User\Infrastructure\Factory\UserFactory $userFactory */
+        $userFactory = $this->getParameter('factory.user');
+        $user = $userFactory->createUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

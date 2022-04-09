@@ -23,11 +23,11 @@ interface UserFactoryInterface
     public function setEmail(Email $email): UserFactoryInterface;
 
     /**
-     * @param Roles $roles
+     * @param array $roles
      *
      * @return $this
      */
-    public function setRoles(Roles $roles): UserFactoryInterface;
+    public function setRoles(array $roles): UserFactoryInterface;
 
     /**
      * @param Password $password
@@ -58,10 +58,10 @@ interface UserFactoryInterface
     public function setPhone(Phone $phone): UserFactoryInterface;
 
     /**
-     * @param IsVerified $isVerified
+     * @param int $isVerified
      *
      * @return $this
      */
-    public function setIsVerified(IsVerified $isVerified): UserFactoryInterface;
+    public function setIsVerified(int $isVerified): UserFactoryInterface;
 
 }

@@ -4,21 +4,16 @@ namespace App\Security\Infrastructure\Form;
 
 use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\FirstName;
-use App\User\Domain\ValueObject\IsVerified;
 use App\User\Domain\ValueObject\LastName;
 use App\User\Domain\ValueObject\Password;
 use App\User\Domain\ValueObject\UkrainianPhone;
 use App\User\Infrastructure\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
-use Symfony\Component\Form\Exception;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -31,14 +26,6 @@ class RegistrationFormType extends AbstractType implements DataMapperInterface
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
             ->add('phone', TextType::class)
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -75,7 +62,6 @@ class RegistrationFormType extends AbstractType implements DataMapperInterface
         $forms['firstname']->setData($viewData ? $viewData->getFirstname() : '');
         $forms['lastname']->setData($viewData ? $viewData->getLastname() : '');
         $forms['phone']->setData($viewData ? $viewData->getPhone() : '');
-        $forms['agreeTerms']->setData(false);
         $forms['plainPassword']->setData($viewData ? $viewData->getPassword() : '');
     }
 

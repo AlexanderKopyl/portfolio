@@ -5,11 +5,9 @@ namespace App\User\Application\Service;
 
 use App\User\Domain\Entity\User;
 use App\User\Domain\Repository\UserRepositoryInterface;
-use App\User\Domain\ValueObject\ID;
 
 class UserService implements UserServiceInterface
 {
-
     /**
      * @var UserRepositoryInterface
      */
@@ -31,9 +29,9 @@ class UserService implements UserServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function get(ID $ID): ?User
+    public function get(int $id): ?User
     {
-        return $this->repository->getById($ID);
+        return $this->repository->getById($id);
     }
 
     /**

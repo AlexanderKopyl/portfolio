@@ -3,15 +3,14 @@
 namespace App\User\Domain\Repository;
 
 use App\User\Domain\Entity\User;
-use App\User\Domain\ValueObject\ID;
 
 interface UserRepositoryInterface
 {
     /**
-     * @param ID $id
+     * @param int $id
      * @return User|null
      */
-    public function getById(ID $id): ?User;
+    public function getById(int $id): ?User;
 
     /**
      * @param User $user

@@ -3,132 +3,52 @@ declare(strict_types=1);
 
 namespace App\User\Application\DTO;
 
+use App\Shared\DataObjectTransfer;
 use App\User\Domain\ValueObject\Email;
 use App\User\Domain\ValueObject\FirstName;
-use App\User\Domain\ValueObject\ID;
-use App\User\Domain\ValueObject\IsVerified;
 use App\User\Domain\ValueObject\LastName;
 use App\User\Domain\ValueObject\Password;
 use App\User\Domain\ValueObject\Phone;
-use App\User\Domain\ValueObject\Roles;
 
-class UserDataTransfer
+class UserDataTransfer extends DataObjectTransfer
 {
     /**
-     * @var ID
+     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * @var FirstName
      */
-    public $firstname;
+    public FirstName $firstname;
 
     /**
      * @var LastName
      */
-    public $lastname;
+    public LastName $lastname;
 
     /**
      * @var Email
      */
-    public $email;
+    public Email $email;
 
     /**
      * @var Phone
      */
-    public $phone;
-
-    /**
-     * @var Roles
-     */
-    public $roles;
-
-    /**
-     * @var Password
-     */
-    public $password;
-
-    /**
-     * @var IsVerified
-     */
-    public $isVerified;
+    public Phone $phone;
 
     /**
      * @var array
      */
-    public array $customData = [];
+    public array $roles;
 
     /**
-     * @param ID $id
-     * @param FirstName $firstname
-     * @param LastName $lastname
-     * @param Email $email
-     * @param Phone $phone
-     * @param Roles $roles
-     * @param Password $password
-     * @param IsVerified $isVerified
+     * @var Password
      */
-    public function __construct(
-        int         $id,
-        FirstName  $firstname,
-        LastName   $lastname,
-        Email      $email,
-        Phone      $phone,
-        array      $roles,
-        Password   $password,
-        int $isVerified
-    ) {
-        $this->id = $id;
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
-        $this->email = $email;
-        $this->phone = $phone;
-        $this->roles = $roles;
-        $this->password = $password;
-        $this->isVerified = $isVerified;
-    }
+    public Password $password;
 
     /**
-     * @param string $name
-     * @param $value
-     *
-     * @return void
+     * @var int
      */
-    public function __set(string $name, $value): void
-    {
-        $this->customData[$name] = $value;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return mixed
-     */
-    public function __get(string $name)
-    {
-        if (!isset($this->customData[$name])) {
-            throw new \RuntimeException("Parameter " . $name . " doesn't exist");
-        }
-
-        return $this->customData[$name];
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function __isset(string $name): bool
-    {
-        return isset($this->customData[$name]);
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return get_object_vars($this);
-    }
+    public int $isVerified;
 }
