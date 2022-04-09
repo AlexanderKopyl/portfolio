@@ -2,19 +2,12 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('footer') }}
-    {{ encore_entry_link_tags('header') }}
+    {{ encore_entry_link_tags('security') }}
 {% endblock %}
 
 {% block header_javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('header') }}
-    {{ encore_entry_script_tags('footer') }}
-{% endblock %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('headerFunctional') }}
-    {{ encore_entry_script_tags('footerFunctional') }}
+    {{ encore_entry_script_tags('security') }}
 {% endblock %}
 
 {% block header %}
